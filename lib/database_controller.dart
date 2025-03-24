@@ -10,7 +10,7 @@ import 'package:sqflite/sqflite.dart';
 class Databasehelper extends GetxController {
   Database? database;
   RxList<Word> allword = <Word>[].obs;
-
+  int A =0;
   @override
   void onInit() {
     print("K=====");
