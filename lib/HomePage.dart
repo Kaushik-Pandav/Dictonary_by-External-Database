@@ -19,105 +19,103 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
     controller = Get.put(Databasehelper());
-    //
-    // get();
-    // HomePage
-    // GetalDatas();
+    searchList=controller!.allword.value;
   }
 
   @override
   Widget build(BuildContext context) {
-    print("===PP${controller}");
     return Scaffold(
+      backgroundColor:Color.fromARGB(255, 240, 237, 204),
       appBar:
+          AppBar(backgroundColor: Color.fromARGB(255, 2, 52, 63),title: Text("Offline Dictionary",style: TextStyle(
+            fontSize: 25,color: Color.fromARGB(255, 240, 237, 204)
+          ),),),
+      body: Column(
+        children: [
           search
-              ? AppBar(
-                backgroundColor: Colors.white,
-                title: TextField(
-                  onChanged: (value) {
-                    searchList = [];
+              ? Container(
+            margin: EdgeInsets.only(top: 10),
+            child: TextField(
+              onChanged: (value) {
+                searchList = [];
+                setState(() {
+                  for (int i = 0; i < controller!.allword.value.length; i++) {
+                    if (controller!.allword.value[i].word.toLowerCase().contains(
+                      value.toLowerCase(),
+                    )) {
+                      searchList.add(controller!.allword.value[i]);
+                    }
+                  }
+                });
+              },
+              decoration: InputDecoration(
+                label: Text("Search"),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))
+                ),
+                suffixIcon: IconButton(
+                  onPressed: () {
                     setState(() {
-                      for (int i = 0; i < controller!.allword.value.length; i++) {
-                        if (controller!.allword.value[i].word.toLowerCase().contains(
-                          value.toLowerCase(),
-                        )) {
-                          searchList.add(controller!.allword.value[i]);
-                        }
-                      }
+                      searchList = controller!.allword.value;
+                      search = false;
                     });
                   },
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          searchList = controller!.allword.value;
-                          search = false;
-                        });
-                      },
-                      icon: Icon(Icons.close),
-                    ),
-                  ),
-                ),
-              )
-              : AppBar(
-                backgroundColor: Colors.blue,
-                title: TextField(
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          searchList = controller!.allword.value;
-                          search = true;
-                        });
-                      },
-                      icon: Icon(Icons.search),
-                    ),
-                  ),
+                  icon: Icon(Icons.close),
                 ),
               ),
-      body: ListView.builder(
-        itemCount: searchList.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text("${searchList[index].word}"),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return showData(
-                      word: searchList[index].word,
-                      meaning: searchList[index].meaning,
+            ),
+          )
+              : Container(
+            margin: EdgeInsets.only(top: 10),
+            child: TextField(
+              readOnly: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(width: 10),
+                  borderRadius: BorderRadius.all(Radius.circular(10))
+                ),
+                label: Text("Search"),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      searchList = controller!.allword.value;
+                      search = true;
+                    });
+                  },
+                  icon: Icon(Icons.search),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: searchList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text("${searchList[index].word}",style: TextStyle(
+                    fontSize: 25,color: Color.fromARGB(255, 2, 52, 63),fontWeight: FontWeight.w500
+                  ),),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return showData(
+                            word: searchList[index].word,
+                            meaning: searchList[index].meaning,
+                          );
+                        },
+                      ),
                     );
                   },
-                ),
-              );
-            },
-          );
-        },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
-
-  // Future<void> create() async {
-  //   search = false;
-  //   // controller.database = await controller.createdatabase();
-  // }
-
-  // void GetalDatas() {
-  //
-  //   controller!.getdata().then((value) {
-  //
-  //   },);
-  //
-  // }
-  // void get() {
-  //   controller!.getdata(controller!.database!).then((value) {
-  //     HomePage.allword = value;
-  //     searchList = value;
-  //   });
-  //   setState(() {});
-  // }
 }

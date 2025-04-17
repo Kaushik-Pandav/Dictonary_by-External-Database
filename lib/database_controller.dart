@@ -24,9 +24,6 @@ class Databasehelper extends GetxController {
     });
   }
 
-  @override
-  void onReady() {}
-
   Future<Database> createdatabase() async {
     Database db;
     Directory directory = await getApplicationDocumentsDirectory();
@@ -54,8 +51,6 @@ class Databasehelper extends GetxController {
       Word word = Word(data[i]["nepali_meaning"], data[i]["word"]);
       mean.add(word);
     }
-
-    print("=====M$mean");
     return mean;
   }
 }
