@@ -25,71 +25,77 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      searchList=controller!.allword;
+      searchList = controller!.allword;
     });
     return Scaffold(
-      backgroundColor:Color.fromARGB(255, 240, 237, 204),
-      appBar:
-          AppBar(backgroundColor: Color.fromARGB(255, 2, 52, 63),title: Text("Offline Dictionary",style: TextStyle(
-            fontSize: 25,color: Color.fromARGB(255, 240, 237, 204)
-          ),),),
+      backgroundColor: Color.fromARGB(255, 240, 237, 204),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 2, 52, 63),
+        title: Text(
+          "Offline Dictionary",
+          style: TextStyle(
+            fontSize: 25,
+            color: Color.fromARGB(255, 240, 237, 204),
+          ),
+        ),
+      ),
       body: Column(
         children: [
           search
               ? Container(
-            margin: EdgeInsets.only(top: 10),
-            child: TextField(
-              onChanged: (value) {
-                searchList = [];
-                setState(() {
-                  for (int i = 0; i < controller!.allword.length; i++) {
-                    if (controller!.allword[i].word.toLowerCase().contains(
-                      value.toLowerCase(),
-                    )) {
-                      searchList.add(controller!.allword[i]);
-                    }
-                  }
-                });
-              },
-              decoration: InputDecoration(
-                label: Text("Search"),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))
-                ),
-                suffixIcon: IconButton(
-                  onPressed: () {
+                margin: EdgeInsets.only(top: 10),
+                child: TextField(
+                  onChanged: (value) {
+                    searchList = [];
                     setState(() {
-                      searchList = controller!.allword;
-                      search = false;
+                      for (int i = 0; i < controller!.allword.length; i++) {
+                        if (controller!.allword[i].word.toLowerCase().contains(
+                          value.toLowerCase(),
+                        )) {
+                          searchList.add(controller!.allword[i]);
+                        }
+                      }
                     });
                   },
-                  icon: Icon(Icons.close),
+                  decoration: InputDecoration(
+                    label: Text("Search"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          searchList = controller!.allword;
+                          search = false;
+                        });
+                      },
+                      icon: Icon(Icons.close),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          )
+              )
               : Container(
-            margin: EdgeInsets.only(top: 10),
-            child: TextField(
-              readOnly: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 10),
-                  borderRadius: BorderRadius.all(Radius.circular(10))
-                ),
-                label: Text("Search"),
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      searchList = controller!.allword;
-                      search = true;
-                    });
-                  },
-                  icon: Icon(Icons.search),
+                margin: EdgeInsets.only(top: 10),
+                child: TextField(
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(width: 10),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    label: Text("Search"),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          searchList = controller!.allword;
+                          search = true;
+                        });
+                      },
+                      icon: Icon(Icons.search),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
           Obx(() {
             return Expanded(
               child: ListView.builder(
@@ -97,9 +103,14 @@ class _HomePageState extends State<HomePage> {
                 itemCount: searchList.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(searchList[index].word,style: TextStyle(
-                        fontSize: 25,color: Color.fromARGB(255, 2, 52, 63),fontWeight: FontWeight.w500
-                    ),),
+                    title: Text(
+                      searchList[index].word,
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Color.fromARGB(255, 2, 52, 63),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -117,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             );
-          },)
+          }),
         ],
       ),
     );

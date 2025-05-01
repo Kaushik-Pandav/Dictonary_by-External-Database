@@ -54,13 +54,24 @@ class _showDataState extends State<showData> {
               ),
             ),
             Spacer(),
-            Container(margin: EdgeInsets.only(bottom: 50),
-              child: TextButton(onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                  return HomePage();
-                },));
-              }, child: Text("Let's Get Some More......",style: TextStyle(fontSize: 20,color: Color.fromARGB(255, 2, 52, 63), ),)),
-            )
+            Card(
+              elevation: 15,
+              shape: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15)
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(15),
+                  color: Color.fromARGB(255, 2, 52, 63)
+                ),
+                 height: 50,
+                child: TextButton(onPressed: () {
+                  Navigator.pop(context);
+                }, child: Text("Let's Get Some More......",style: TextStyle(fontSize: 20,color: Color.fromARGB(255, 240, 237, 204), ),)),
+              ),
+            ),
+            SizedBox(height: 100,)
           ],
         ),
       ),
