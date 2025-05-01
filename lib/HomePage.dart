@@ -20,11 +20,13 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     controller = Get.put(Databasehelper());
-    searchList=controller!.allword.value;
   }
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      searchList=controller!.allword;
+    });
     return Scaffold(
       backgroundColor:Color.fromARGB(255, 240, 237, 204),
       appBar:
@@ -40,11 +42,11 @@ class _HomePageState extends State<HomePage> {
               onChanged: (value) {
                 searchList = [];
                 setState(() {
-                  for (int i = 0; i < controller!.allword.value.length; i++) {
-                    if (controller!.allword.value[i].word.toLowerCase().contains(
+                  for (int i = 0; i < controller!.allword.length; i++) {
+                    if (controller!.allword[i].word.toLowerCase().contains(
                       value.toLowerCase(),
                     )) {
-                      searchList.add(controller!.allword.value[i]);
+                      searchList.add(controller!.allword[i]);
                     }
                   }
                 });
@@ -57,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {
-                      searchList = controller!.allword.value;
+                      searchList = controller!.allword;
                       search = false;
                     });
                   },
@@ -79,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {
-                      searchList = controller!.allword.value;
+                      searchList = controller!.allword;
                       search = true;
                     });
                   },
@@ -88,32 +90,34 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: searchList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text("${searchList[index].word}",style: TextStyle(
-                    fontSize: 25,color: Color.fromARGB(255, 2, 52, 63),fontWeight: FontWeight.w500
-                  ),),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return showData(
-                            word: searchList[index].word,
-                            meaning: searchList[index].meaning,
-                          );
-                        },
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
+          Obx(() {
+            return Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: searchList.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(searchList[index].word,style: TextStyle(
+                        fontSize: 25,color: Color.fromARGB(255, 2, 52, 63),fontWeight: FontWeight.w500
+                    ),),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return showData(
+                              word: searchList[index].word,
+                              meaning: searchList[index].meaning,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            );
+          },)
         ],
       ),
     );

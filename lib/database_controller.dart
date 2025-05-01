@@ -16,9 +16,7 @@ class Databasehelper extends GetxController {
     print("K=====");
     createdatabase().then((value) {
       database = value;
-      print("KK======$value");
       getdata(database!).then((kk) {
-        print("===W$kk");
         allword.value = kk;
       });
     });
