@@ -1,4 +1,4 @@
-# dictonary
+# Offline_Dictionary
 
 A new Flutter project.
 
