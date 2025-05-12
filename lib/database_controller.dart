@@ -13,7 +13,6 @@ class Databasehelper extends GetxController {
   int A =0;
   @override
   void onInit() {
-    print("K=====");
     createdatabase().then((value) {
       database = value;
       getdata(database!).then((kk) {
