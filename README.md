@@ -1,16 +1,18 @@
-# Offline_Dictionary
+# 📚 English to Hindi Offline Dictionary
 
-A new Flutter project.
+An **offline** Flutter-based dictionary app that translates English words to Hindi without requiring an internet connection. Fast, lightweight, and easy to use!
 
-## Getting Started
+## ✅ Features
 
-This project is a starting point for a Flutter application.
+- 🔍 Search English words to get Hindi meanings
+- 📦 Fully offline – no internet needed
+- 💾 Local SQLite database integration
+- 📱 Clean, user-friendly UI
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠 Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter** – Cross-platform UI toolkit
+- **Dart** – Programming language
+- **sqflite** – Local SQLite database plugin
+- **GetX** – State management
+- **Material Design** – For beautiful UI
