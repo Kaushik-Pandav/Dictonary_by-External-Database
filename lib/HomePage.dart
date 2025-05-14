@@ -20,13 +20,11 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     controller = Get.put(Databasehelper());
+    searchList = controller!.allword;
   }
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      searchList = controller!.allword;
-    });
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 240, 237, 204),
       appBar: AppBar(
@@ -45,11 +43,17 @@ class _HomePageState extends State<HomePage> {
               ? Container(
                 margin: EdgeInsets.only(top: 10),
                 child: TextField(
+                  onTap: () {
+                    setState(() {
+                      searchList = controller!.allword;
+                      search = false;
+                    });
+                  },
                   onChanged: (value) {
                     searchList = [];
                     setState(() {
                       for (int i = 0; i < controller!.allword.length; i++) {
-                        if (controller!.allword[i].word.toLowerCase().contains(
+                        if (controller!.allword[i].word.toLowerCase().startsWith(
                           value.toLowerCase(),
                         )) {
                           searchList.add(controller!.allword[i]);
@@ -78,6 +82,12 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsets.only(top: 10),
                 child: TextField(
                   readOnly: true,
+                  onTap: () {
+                    setState(() {
+                      searchList = controller!.allword;
+                      search = true;
+                    });
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(width: 10),
